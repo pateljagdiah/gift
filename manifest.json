@@ -1,0 +1,24 @@
+{
+  "name": "Mahi Birthday Surprise",
+  "short_name": "MAHI Birthday",
+  "description": "Special birthday surprise app for MAHI",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#ff9ec7",
+  "theme_color": "#ff4081",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

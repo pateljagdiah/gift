@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday MAHI! 💖</title>
+    <!-- PWA Meta Tags -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4081">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MAHI Birthday">
+<link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9ec7 0%, #ffd6e7 50%, #ffe5ec 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .screen {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .welcome-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 2em;
+            color: #ff4081;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #880e4f;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .sister-name {
+            font-size: 2.5em;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+        }
+
+        .heart-divider {
+            font-size: 25px;
+            margin: 15px 0;
+        }
+
+        .message {
+            color: #c2185b;
+            font-style: italic;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b9d, #ff4081);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #ffb3d9, #ff80ab);
+        }
+
+        .wish-box {
+            background: #fff5f7;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px dashed #ff6b9d;
+            margin: 20px 0;
+            min-height: 150px;
+        }
+
+        .wish-emoji {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .wish-text {
+            color: #c2185b;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .cake-container {
+            margin: 20px 0;
+        }
+
+        .cake {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+        .candle {
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        .candle:nth-child(1) { top: 0; left: 50px; }
+        .candle:nth-child(2) { top: 0; left: 85px; }
+        .candle:nth-child(3) { top: 0; left: 120px; }
+
+        .candle.blown {
+            opacity: 0.3;
+        }
+
+        .layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .layer-1 {
+            bottom: 0;
+            width: 180px;
+            height: 50px;
+            background: linear-gradient(to bottom, #f8bbd0, #f48fb1);
+        }
+
+        .layer-2 {
+            bottom: 50px;
+            width: 140px;
+            height: 45px;
+            background: linear-gradient(to bottom, #f48fb1, #ec407a);
+        }
+
+        .layer-3 {
+            bottom: 95px;
+            width: 100px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ec407a, #c2185b);
+        }
+
+        .plate {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 15px;
+            background: linear-gradient(to bottom, #d4a574, #8b6f47);
+            border-radius: 50%;
+        }
+
+        .wish-result {
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        .final-icon {
+            font-size: 60px;
+            margin: 15px 0;
+        }
+
+        .emoji-row {
+            font-size: 25px;
+            margin: 10px 0;
+        }
+
+        .love-message {
+            color: #c2185b;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .signature {
+            color: #880e4f;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        /* Songs Section */
+        .song-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+        }
+
+        .song-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 5px solid #ff4081;
+            text-align: left;
+        }
+
+        .song-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .song-emoji {
+            font-size: 25px;
+            margin-right: 10px;
+        }
+
+        .song-title {
+            font-weight: bold;
+            color: #c2185b;
+        }
+
+        .song-artist {
+            font-size: 0.85em;
+            color: #880e4f;
+        }
+
+        .badge {
+            font-size: 0.7em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .badge-default {
+            background: #ff80ab;
+        }
+
+        .badge-permanent {
+            background: #4caf50;
+        }
+
+        .play-btn {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        .admin-btn {
+            background: white;
+            border: 2px dashed #ff4081;
+            color: #ff4081;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        /* Photos Section */
+        .photo-carousel {
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+            background: #fff;
+        }
+
+        .photo-track {
+            display: flex;
+            transition: transform 0.3s;
+        }
+
+        .photo-slide {
+            min-width: 100%;
+            height: 250px;
+            background: linear-gradient(#ffd6e7, #ffb3d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .photo-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .photo-arrow {
+            background: #ff4081;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .photo-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .photo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffb3d9;
+        }
+
+        .photo-dot.active {
+            background: #ff4081;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .upload-btn {
+            background: #ff80ab;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 350px;
+        }
+
+        .modal-title {
+            color: #ff4081;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff4081;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .file-upload {
+            border: 3px dashed #ff4081;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            margin: 10px 0;
+            background: #fff5f7;
+        }
+
+        .file-upload:hover {
+            background: #ffe5ec;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .modal-btn {
+            padding: 10px 25px;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-btn-cancel {
+            background: #999;
+        }
+
+        .modal-btn-login {
+            background: #ff4081;
+        }
+
+        .modal-btn-add {
+            background: #4caf50;
+        }
+
+        .info-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .emoji-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .emoji-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .emoji-option.selected {
+            background: #ffe5ec;
+            border-color: #ff4081;
+        }
+
+        .selected-file {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .exit-admin {
+            color: #999;
+            font-size: 0.85em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .instruction {
+            color: #c2185b;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 420px) {
+            .container { padding: 10px; }
+            .screen { padding: 20px; }
+            .title { font-size: 1.7em; }
+            .sister-name { font-size: 2em; }
+            .btn { padding: 12px 25px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SCREEN 1: WELCOME -->
+        <div class="screen active" id="screen1">
+            <div class="welcome-icon">🎁</div>
+            <h1 class="title">Surprise MAHI!</h1>
+            <p class="subtitle">You have a special surprise<br>waiting for you ✨</p>
+            <button class="btn" onclick="goToScreen(2)">Open Surprise 🎉</button>
+        </div>
+
+        <!-- SCREEN 2: BIRTHDAY -->
+        <div class="screen" id="screen2">
+            <h2 style="color:#ff4081;font-size:1.3em;">✨ Happy Birthday ✨</h2>
+            <h1 class="sister-name">MAHI</h1>
+            <div class="heart-divider">💖 💕 💖</div>
+            <p class="message">
+                "Today is the day the world became more beautiful,<br>
+                because it's the day MAHI was born! 🌸"
+            </p>
+            <button class="btn" onclick="goToScreen(7)">🎵 Listen Songs</button>
+            <button class="btn btn-secondary" onclick="goToScreen(3)">💌 Read Wishes</button>
+        </div>
+
+        <!-- SCREEN 3: WISHES -->
+        <div class="screen" id="screen3">
+            <h2 style="color:#e91e63;font-size:1.2em;">🌟 Wishes For MAHI 🌟</h2>
+            <div class="wish-box">
+                <div class="wish-emoji" id="wishEmoji">🎁</div>
+                <p class="wish-text" id="wishText">Tap the button to get your birthday wish! 💝</p>
+            </div>
+            <button class="btn" onclick="showWish()">🎁 Get a Wish</button>
+            <button class="btn btn-secondary" onclick="goToScreen(4)">🎂 Blow Candles ➡️</button>
+        </div>
+
+        <!-- SCREEN 4: CAKE -->
+        <div class="screen" id="screen4">
+            <h2 style="color:#e91e63;font-size:1.2em;">🎂 MAHI's Cake!</h2>
+            <p class="instruction">Tap each candle to blow it out 🕯️</p>
+            <div class="cake-container">
+                <div class="cake">
+                    <span class="candle" onclick="blowCandle(0)">🕯️</span>
+                    <span class="candle" onclick="blowCandle(1)">🕯️</span>
+                    <span class="candle" onclick="blowCandle(2)">🕯️</span>
+                    <div class="layer layer-3"></div>
+                    <div class="layer layer-2"></div>
+                    <div class="layer layer-1"></div>
+                    <div class="plate"></div>
+                </div>
+            </div>
+            <p class="wish-result" id="wishResult"></p>
+            <button class="btn" onclick="goToScreen(5)">Final Surprise ➡️</button>
+        </div>
+
+        <!-- SCREEN 5: FINAL -->
+        <div class="screen" id="screen5">
+            <div class="final-icon">🎊</div>
+            <h2 style="color:#e91e63;font-size:1.2em;">With All My Love, <span style="color:#ff4081;">MAHI</span></h2>
+            <div class="emoji-row">💖 🌸 ✨ 🌸 💖</div>
+            <p class="love-message">
+                Dear MAHI, may your life be filled with endless joy,<br>
+                laughter, and love. May all your dreams come true! 🌈
+            </p>
+            <div class="emoji-row">🎂 🎁 🎈 🎉 🎊</div>
+            <p class="signature">— With Love, Your Family 💕</p>
+            <button class="btn" onclick="goToScreen(6)">📸 See Photos</button>
+            <button class="btn btn-secondary" onclick="goToScreen(7)">🎵 Listen Songs</button>
+            <button class="btn btn-secondary" onclick="resetApp()">🔄 Replay</button>
+        </div>
+
+        <!-- SCREEN 6: PHOTOS -->
+        <div class="screen" id="screen6">
+            <h2 style="color:#e91e63;font-size:1.2em;">📸 Memories With MAHI 💖</h2>
+            <div class="photo-carousel">
+                <div class="photo-track" id="photoTrack"></div>
+            </div>
+            <div class="photo-nav">
+                <button class="photo-arrow" onclick="prevPhoto()">◀</button>
+                <div class="photo-dots" id="photoDots"></div>
+                <button class="photo-arrow" onclick="nextPhoto()">▶</button>
+            </div>
+            <input type="file" id="photoUpload" accept="image/*" multiple style="display:none" onchange="uploadPhotos()">
+            <button class="upload-btn" onclick="document.getElementById('photoUpload').click()">📤 Add Photos</button>
+            <button class="btn btn-secondary" onclick="goToScreen(1)">🏠 Home</button>
+        </div>
+
+        <!-- SCREEN 7: SONGS -->
+        <div class="screen" id="screen7">
+            <h2 style="color:#e91e63;font-size:1.2em;">🎵 Songs For MAHI 🎵</h2>
+            <p style="color:#880e4f;font-size:0.9em;margin-bottom:10px;">Tap Play to listen! 💖</p>
+            <div class="song-list" id="songList"></div>
+            <button class="admin-btn" id="adminBtn" onclick="showAdminLogin()">🔐 Admin Login</button>
+            <br>
+            <button class="btn btn-secondary" onclick="goToScreen(1)">🏠 Home</button>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <h2 class="modal-title">🔐 Admin Login</h2>
+            <p style="color:#666;font-size:0.9em;margin-bottom:15px;">Enter password to add songs</p>
+            <input type="password" class="modal-input" id="passwordInput" placeholder="Enter Password">
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeAdminLogin()">Cancel</button>
+                <button class="modal-btn modal-btn-login" onclick="handleAdminLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD SONG MODAL -->
+    <div class="modal" id="addSongModal">
+        <div class="modal-content">
+            <h2 class="modal-title">➕ Add New Song</h2>
+            <p style="color:#666;font-size:0.85em;margin-bottom:10px;">Select MP3 file from your device</p>
+            
+            <input type="file" id="songFileInput" accept=".mp3,audio/mpeg" style="display:none" onchange="handleFileSelect()">
+            <div class="file-upload" onclick="document.getElementById('songFileInput').click()">
+                <div style="font-size:40px;">🎵</div>
+                <p style="color:#c2185b;font-weight:bold;">Click to select MP3 file</p>
+                <p style="color:#999;font-size:0.8em;">or drag and drop</p>
+            </div>
+            
+            <div class="selected-file" id="selectedFileInfo" style="display:none;">
+                <p id="selectedFileName"></p>
+                <p id="selectedFileSize" style="font-size:0.8em;color:#666;"></p>
+            </div>
+
+            <input type="text" class="modal-input" id="newSongTitle" placeholder="Song Title *">
+            <input type="text" class="modal-input" id="newSongArtist" placeholder="Artist Name">
+
+            <p style="color:#c2185b;font-weight:600;font-size:0.85em;">Choose Emoji:</p>
+            <div class="emoji-selector" id="emojiSelector">
+                <span class="emoji-option selected" data-emoji="🎵">🎵</span>
+                <span class="emoji-option" data-emoji="🎶">🎶</span>
+                <span class="emoji-option" data-emoji="💖">💖</span>
+                <span class="emoji-option" data-emoji="🌹">🌹</span>
+                <span class="emoji-option" data-emoji="🎂">🎂</span>
+                <span class="emoji-option" data-emoji="✨">✨</span>
+                <span class="emoji-option" data-emoji="🎉">🎉</span>
+                <span class="emoji-option" data-emoji="💕">💕</span>
+            </div>
+
+            <p class="info-text">
+                📌 Song will be saved PERMANENTLY<br>
+                👑 Only admin can add/remove songs
+            </p>
+
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeAddSong()">Cancel</button>
+                <button class="modal-btn modal-btn-add" onclick="handleAddSong()">✅ Add Song</button>
+            </div>
+            <button class="exit-admin" onclick="exitAdmin()">🚪 Exit Admin Mode</button>
+        </div>
+    </div>
+
+    <script>
+        // ============ CONFIG ============
+        const ADMIN_PASSWORD = 'MAHI2026';
+
+        // ============ DATA ============
+        let allSongs = [
+            { id: 1, title: 'Demo Song 1', artist: 'Artist', emoji: '💖', color: '#ff4081', dataUrl: null, isDefault: true, addedDate: 'Demo' },
+            { id: 2, title: 'Demo Song 2', artist: 'Artist', emoji: '🎂', color: '#ff6b9d', dataUrl: null, isDefault: true, addedDate: 'Demo' },
+            { id: 3, title: 'Demo Song 3', artist: 'Artist', emoji: '🌹', color: '#ec407a', dataUrl: null, isDefault: true, addedDate: 'Demo' }
+        ];
+
+        let allPhotos = [
+            { uri: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=400', caption: 'Beautiful 💖' },
+            { uri: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400', caption: 'Precious 🌸' },
+            { uri: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400', caption: 'Together 💕' },
+            { uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400', caption: 'My Mahi ✨' },
+            { uri: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400', caption: 'Memories 🎀' }
+        ];
+
+        const WISHES = [
+            'MAHI, may all your dreams come true! ✨',
+            'Dear MAHI, you deserve all the happiness! 💖',
+            'Happy Birthday MAHI! Endless joy & success! 🎉',
+            'MAHI, you are the most amazing sister! 💕',
+            'Wishing you love, laughter, cake! 🎂',
+            'May your life be beautiful MAHI! 🌺',
+            "Here's to another wonderful year MAHI! 🎈",
+            'MAHI, keep shining bright! ⭐',
+            'MAHI, you are loved so much! 💗',
+            'MAHI, your smile lights up our lives! ☀️'
+        ];
+
+        // ============ STATE ============
+        let currentScreen = 1;
+        let blownCandles = 0;
+        let currentPhoto = 0;
+        let isAdmin = false;
+        let selectedEmoji = '🎵';
+        let selectedFile = null;
+        let currentlyPlayingId = null;
+        let songAudio = new Audio();
+
+        // ============ INIT ============
+        window.onload = function() {
+            loadData();
+            loadPhotos();
+            loadSongs();
+            initEmojiSelector();
+            songAudio.addEventListener('ended', stopSong);
+        };
+
+        // ============ LOAD/SAVE ============
+        function loadData() {
+            try {
+                let songs = localStorage.getItem('birthday_songs');
+                if (songs) {
+                    let custom = JSON.parse(songs);
+                    allSongs = [
+                        { id: 1, title: 'Demo Song 1', artist: 'Artist', emoji: '💖', color: '#ff4081', dataUrl: null, isDefault: true },
+                        { id: 2, title: 'Demo Song 2', artist: 'Artist', emoji: '🎂', color: '#ff6b9d', dataUrl: null, isDefault: true },
+                        { id: 3, title: 'Demo Song 3', artist: 'Artist', emoji: '🌹', color: '#ec407a', dataUrl: null, isDefault: true }
+                    ];
+                    custom.forEach(s => {
+                        s.id = 'custom_' + Date.now() + Math.random();
+                        s.isDefault = false;
+                        allSongs.push(s);
+                    });
+                }
+            } catch(e) { console.log('Load error'); }
+        }
+
+        function saveSongs() {
+            try {
+                let custom = allSongs.filter(s => !s.isDefault);
+                localStorage.setItem('birthday_songs', JSON.stringify(custom));
+            } catch(e) { console.log('Save error'); }
+        }
+
+        // ============ NAVIGATION ============
+        function goToScreen(num) {
+            currentScreen = num;
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + num).classList.add('active');
+        }
+
+        // ============ WISHES ============
+        function showWish() {
+            let wish = WISHES[Math.floor(Math.random() * WISHES.length)];
+            let emojis = ['🌟', '💖', '🎂', '🌸', '✨', '🦋', '🌈', '💐', '🎈', '💕'];
+            let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            document.getElementById('wishEmoji').textContent = emoji;
+            document.getElementById('wishText').textContent = wish;
+        }
+
+        // ============ CANDLES ============
+        function blowCandle(num) {
+            let candles = document.querySelectorAll('.candle');
+            if (!candles[num].classList.contains('blown')) {
+                candles[num].classList.add('blown');
+                blownCandles++;
+                if (blownCandles === 3) {
+                    document.getElementById('wishResult').textContent = "🎉 MAHI's wish will come true! 🎉";
+                }
+            }
+        }
+
+        // ============ RESET ============
+        function resetApp() {
+            blownCandles = 0;
+            document.querySelectorAll('.candle').forEach(c => c.classList.remove('blown'));
+            document.getElementById('wishResult').textContent = '';
+            document.getElementById('wishEmoji').textContent = '🎁';
+            document.getElementById('wishText').textContent = 'Tap the button to get your birthday wish! 💝';
+            goToScreen(1);
+        }
+
+        // ============ PHOTOS ============
+        function loadPhotos() {
+            let track = document.getElementById('photoTrack');
+            let dots = document.getElementById('photoDots');
+            track.innerHTML = '';
+            dots.innerHTML = '';
+
+            allPhotos.forEach((photo, i) => {
+                let div = document.createElement('div');
+                div.className = 'photo-slide';
+                div.innerHTML = `<img src="${photo.uri}" alt="Photo ${i+1}" onerror="this.parentElement.innerHTML='🌸 Photo ${i+1}'">`;
+                track.appendChild(div);
+
+                let dot = document.createElement('div');
+                dot.className = 'photo-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToPhoto(i);
+                dots.appendChild(dot);
+            });
+        }
+
+        function goToPhoto(num) {
+            currentPhoto = num;
+            document.getElementById('photoTrack').style.transform = `translateX(-${num * 100}%)`;
+            document.querySelectorAll('.photo-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === num);
+            });
+        }
+
+        function nextPhoto() {
+            goToPhoto((currentPhoto + 1) % allPhotos.length);
+        }
+
+        function prevPhoto() {
+            goToPhoto((currentPhoto - 1 + allPhotos.length) % allPhotos.length);
+        }
+
+        function uploadPhotos() {
+            let input = document.getElementById('photoUpload');
+            let files = input.files;
+            for (let file of files) {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    allPhotos.push({ uri: e.target.result, caption: 'New Memory 💖' });
+                    loadPhotos();
+                };
+                reader.readAsDataURL(file);
+            }
+            alert('✅ Photos added!');
+        }
+
+        // ============ SONGS ============
+        function loadSongs() {
+            let list = document.getElementById('songList');
+            list.innerHTML = '';
+
+            allSongs.forEach(song => {
+                let div = document.createElement('div');
+                div.className = 'song-card';
+                div.style.borderLeftColor = song.color;
+
+                let hasAudio = song.dataUrl !== null;
+                let isPlaying = currentlyPlayingId === song.id;
+
+                div.innerHTML = `
+                    <div class="song-header">
+                        <span class="song-emoji">${song.emoji}</span>
+                        <div>
+                            <span class="song-title">${song.title}</span>
+                            ${song.isDefault ? '<span class="badge badge-default">DEMO</span>' : '<span class="badge badge-permanent">✓ PERM</span>'}
+                        </div>
+                    </div>
+                    <div class="song-artist">${song.artist}</div>
+                    ${!hasAudio ? '<p style="color:#ff9800;font-size:0.8em;margin-top:5px;">⚠️ No file - Admin add MP3</p>' : ''}
+                    <button class="play-btn" style="background:${hasAudio ? song.color : '#999'}" 
+                            onclick="${hasAudio ? `playSong('${song.id}')` : `alert('⚠️ Contact admin to add MP3!')`}"
+                            ${!hasAudio ? 'disabled' : ''}>
+                        ${isPlaying ? '⏸ Playing...' : '▶ Play'}
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+
+            document.getElementById('adminBtn').textContent = isAdmin ? '👑 Admin Mode' : '🔐 Admin Login';
+            document.getElementById('adminBtn').style.background = isAdmin ? '#4caf50' : 'white';
+            document.getElementById('adminBtn').style.color = isAdmin ? 'white' : '#ff4081';
+        }
+
+        function playSong(id) {
+            let song = allSongs.find(s => s.id == id || s.id === id);
+            if (!song || !song.dataUrl) {
+                alert('⚠️ No audio file!');
+                return;
+            }
+            songAudio.src = song.dataUrl;
+            songAudio.play();
+            currentlyPlayingId = id;
+            loadSongs();
+        }
+
+        function stopSong() {
+            currentlyPlayingId = null;
+            loadSongs();
+        }
+
+        // ============ FILE UPLOAD ============
+        function handleFileSelect() {
+            let input = document.getElementById('songFileInput');
+            let file = input.files[0];
+            if (!file) return;
+
+            if (!file.name.endsWith('.mp3')) {
+                alert('⚠️ Please select an MP3 file!');
+                return;
+            }
+
+            selectedFile = file;
+            document.getElementById('selectedFileInfo').style.display = 'block';
+            document.getElementById('selectedFileName').textContent = '📁 ' + file.name;
+            document.getElementById('selectedFileSize').textContent = 'Size: ' + (file.size / 1024 / 1024).toFixed(1) + ' MB';
+
+            // Auto-fill title
+            if (!document.getElementById('newSongTitle').value) {
+                document.getElementById('newSongTitle').value = file.name.replace('.mp3', '').replace(/_/g, ' ');
+            }
+        }
+
+        function initEmojiSelector() {
+            document.querySelectorAll('.emoji-option').forEach(opt => {
+                opt.onclick = () => {
+                    document.querySelectorAll('.emoji-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    selectedEmoji = opt.dataset.emoji;
+                };
+            });
+        }
+
+        // ============ ADMIN ============
+        function showAdminLogin() {
+            if (isAdmin) {
+                document.getElementById('addSongModal').classList.add('active');
+                return;
+            }
+            document.getElementById('adminLoginModal').classList.add('active');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLoginModal').classList.remove('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function handleAdminLogin() {
+            let password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                closeAdminLogin();
+                document.getElementById('addSongModal').classList.add('active');
+                alert('🔓 Admin Access!\n\nYou can now add songs!');
+            } else {
+                alert('❌ Wrong Password!');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function closeAddSong() {
+            document.getElementById('addSongModal').classList.remove('active');
+            document.getElementById('newSongTitle').value = '';
+            document.getElementById('newSongArtist').value = '';
+            document.getElementById('songFileInput').value = '';
+            document.getElementById('selectedFileInfo').style.display = 'none';
+            selectedFile = null;
+            selectedEmoji = '🎵';
+        }
+
+        function handleAddSong() {
+            let title = document.getElementById('newSongTitle').value.trim();
+            let artist = document.getElementById('newSongArtist').value.trim();
+
+            if (!title) { alert('⚠️ Enter song title!'); return; }
+            if (!selectedFile) { alert('⚠️ Select MP3 file!'); return; }
+
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let colors = ['#ff4081', '#ff6b9d', '#ec407a', '#c2185b', '#ff80ab'];
+                allSongs.push({
+                    id: 'custom_' + Date.now(),
+                    title: title,
+                    artist: artist || 'Artist',
+                    emoji: selectedEmoji,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    dataUrl: e.target.result,
+                    isDefault: false
+                });
+                saveSongs();
+                closeAddSong();
+                loadSongs();
+                alert('✅ Song Added PERMANENTLY!\n\n"' + title + '" is saved!');
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+
+        function exitAdmin() {
+            isAdmin = false;
+            closeAddSong();
+            loadSongs();
+            alert('🚪 Exited Admin Mode');
+        }    
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service Worker registered'))
+      .catch(err => console.log('Service Worker registration failed'));
+  }
+    </script>
+</body>
+</html
